@@ -18,6 +18,8 @@ _t *root=NULL;
 _t *appnd(_t* str, int data);
 void disp(_t *str);
 _t *delet(_t* str,int data);
+
+_t *rev(_t *str);
 int main()
 {
     root=appnd(root,10);
@@ -29,17 +31,42 @@ int main()
     root=appnd(root,70);
     disp(root);
     printf("\n");
-    root=delet(root,10);
+    root=delet(root,70);
     disp(root);
-    printf("Hello World");
+    printf("\n");
+    root=rev(root);
+    disp(root);
     return 0;
 }
 
+_t *rev(_t *str)
+{
+    _t *nxt=NULL;
+    _t *pre=NULL;
+    _t *head=str;
+    
+    
+    if(str==NULL)
+    {
+        printf("NO data foud\n");
+        return str;
+    }
+    else
+    {
+        while(head!=NULL)
+        {
+            nxt=head->link;
+            head->link=pre;
+            pre=head;
+            head=nxt;
+        }
+        return pre;
+    }
+}
 
 _t *delet(_t* str,int data)
 {
     _t *p=str,*temp,*p1;
-    printf("%x\n",str);
     if(str==NULL)
     {
         printf("No node available for delete\n");
