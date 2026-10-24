@@ -15,77 +15,75 @@ typedef struct node
 }_t;
 
 _t *root=NULL;
-
-_t *append(_t *str, int data);
+_t *appnd(_t* str, int data);
 void disp(_t *str);
-_t *delete(_t *str, int data);
+_t *delet(_t* str,int data);
 int main()
-{    
-    
-    root=append(root,10);
-    root=append(root,20);
-    root=append(root,30);
-    root=append(root,40);
-    root=append(root,50);
+{
+    root=appnd(root,10);
+    root=appnd(root,20);
+    root=appnd(root,30);
+    root=appnd(root,40);
+    root=appnd(root,50);
+    root=appnd(root,60);
+    root=appnd(root,70);
     disp(root);
-    root=delete(root,10);
-    printf("\n++++++++++++++\n");
+    printf("\n");
+    root=delet(root,10);
     disp(root);
-
+    printf("Hello World");
     return 0;
 }
 
-_t *delete(_t *str, int data)
+
+_t *delet(_t* str,int data)
 {
-    _t *p=str;
-    _t *p1=NULL;
-    _t *temp=NULL;
-    
+    _t *p=str,*temp,*p1;
+    printf("%x\n",str);
     if(str==NULL)
     {
-        printf("No data available\n");
+        printf("No node available for delete\n");
         return str;
     }
     if(p->link==NULL)
     {
-        free(p);
-        str=NULL;
-        return str;
+        if(p->data==data)
+        {
+            str=NULL;
+            free(p);
+        }
     }
     else
     {
-        while(p->link!=NULL && p->data!=data)
+        while(p!=NULL && p->data!=data)
         {
             p1=p;
-            // printf("\n%d\n",p1->data);
             p=p->link;
-            //  printf("\n%d\n",p->data);
         }
-        if(p->link==NULL)
+        if(p->data==data)
         {
-            temp=p;
-            p1->link=NULL;
-            free(temp);
-            return str;
-        }
-        else
-        {
+            if(p->link==NULL)
+            {
+                temp=p;
+                p1->link=NULL;
+                free(temp);
+                return str;
+            }
             temp=p->link;
             p->data=temp->data;
             p->link=temp->link;
-            
-            return str;
-            
+            free(temp);
         }
+        return str;
     }
 }
+
 void disp(_t *str)
 {
     _t *p=str;
-    
     if(str==NULL)
     {
-        printf("No data available in disap\n");
+        printf("No node available\n");
         return;
     }
     else
@@ -97,14 +95,15 @@ void disp(_t *str)
         }
     }
 }
-_t *append(_t *str, int data)
+
+
+_t *appnd(_t* str, int data)
 {
-    _t *temp=malloc(sizeof(_t));
-    _t *p=str;
+    _t* temp, *p=str;
     
+    temp=malloc(sizeof(_t));
     temp->data=data;
     temp->link=NULL;
-    
     if(str==NULL)
     {
         str=temp;
@@ -117,7 +116,6 @@ _t *append(_t *str, int data)
             p=p->link;
         }
         p->link=temp;
-     return str;
     }
-   
+    return str;
 }
